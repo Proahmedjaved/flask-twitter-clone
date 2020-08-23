@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+    <article class="media content-section">
+        <img src="{{ url_for('static', filename='profile_pics/' + tweet.author.image_file) }}" class="rounded-circle article-img" alt="">
+        <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="{{ url_for('user_tweets', username=tweet.author.username) }}">{{ tweet.author.username }}</a>
+            <small class="text-muted">{{ tweet.date_posted.strftime('%d-%m-%Y') }}</small>
+            {% if tweet.author == current_user %}
+                <a class="btn btn-secondary btn-sm float-right" href="{{ url_for('tweet_update', id=tweet.id)}}" >Update</a>
+
+                <small class="btn btn-danger btn-sm float-right mr-2" href="" data-toggle="modal" data-target="#deleteModal" >Delete</small>
+            {% endif %}
+        </div>
+        <p class="article-content h4 mt-3">{{ tweet.text }}</p>
+        </div>
+    </article>
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Do you want to delete this tweet?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p class="h4">{{ tweet.text }}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <form action="{{ url_for('tweet_delete', id=tweet.id)}}" method="POST">
+                  <input type="submit" class="btn btn-danger" value="Delete">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock content %}
