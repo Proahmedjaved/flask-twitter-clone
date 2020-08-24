@@ -25,7 +25,7 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[validators.DataRequired(), validators.Email()])
     password = PasswordField('Password', validators=[validators.DataRequired()])
     remember = BooleanField('Remember Me')
-    submit = SubmitField('Login Up')
+    submit = SubmitField('Sign In')
 
 
 class UpdateAccountForm(FlaskForm):
