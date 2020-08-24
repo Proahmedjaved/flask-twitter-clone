@@ -8,7 +8,7 @@ from flask_login import LoginManager
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dcef3fd2f3a917dda52f56ed46ddea37'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///tweeter'
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
